@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAFAS | Engineering Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet"></noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+
+    <style>
+        :root {
+            --primary: #588157; 
+            --accent: #DDA15E; 
+            --dark-bg: #0a0f16;
+            --dark-card: #131b26;
+            --text-main: #f0f4f8;
+            --text-muted: #94a3b8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+
+        /* Custom Cursor - Desktop Only */
+        @media (min-width: 1024px) {
+            * { cursor: none; }
+        }
+
+        /* ---------------- Custom Cursor - Desktop Only ---------------- */
+        @media (min-width: 1024px) {
+            .cursor {
+                width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+                position: fixed; pointer-events: none; z-index: 9999;
+                transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+            }
+            .cursor-follower {
+                width: 40px; height: 40px; border: 1px solid var(--primary); border-radius: 50%;
+                position: fixed; pointer-events: none; z-index: 9998;
+                transform: translate(-50%, -50%); transition: 0.1s ease-out;
+            }
+            a:hover ~ .cursor, button:hover ~ .cursor { transform: translate(-50%, -50%) scale(2); background: var(--primary); }
+        }
+        @media (max-width: 1023px) {
+            .cursor, .cursor-follower { display: none; }
+        }
+
+        /* ---------------- إعدادات الـ Snap Scrolling ---------------- */
+        html, body { height: 100%; width: 100%; overflow: hidden; background: var(--dark-bg); color: var(--text-main); }
+        
+        .main-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+        .main-container::-webkit-scrollbar { display: none; }
+
+        section {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* ---------------- Navigation Dots ---------------- */
+        .nav-dots {
+            position: fixed; left: 30px; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 15px; z-index: 100;
+        }
+        .dot {
+            width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--text-muted);
+            cursor: none; transition: 0.3s; background: transparent;
+        }
+        .dot.active { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px var(--accent); transform: scale(1.3); }
+
+        /* ---------------- إضاءة سينمائية متحركة ---------------- */
+        .cinematic-light {
+            position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.4; z-index: -1;
+            animation: moveLight 15s infinite alternate; pointer-events: none;
+        }
+        .light-1 { width: 400px; height: 400px; background: var(--primary); top: -10%; right: -10%; }
+        .light-2 { width: 300px; height: 300px; background: var(--accent); bottom: -10%; left: -10%; animation-delay: -5s; opacity: 0.2; }
+
+        @keyframes moveLight { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(100px, 100px) scale(1.2); } }
+
+        /* Disable heavy animations on mobile */
+        @media (max-width: 1023px) {
+            .cinematic-light { display: none; }
+        }
+
+        /* ---------------- Section 1: Hero ---------------- */
+        .hero-content { text-align: center; z-index: 1; max-width: 850px; padding: 0 20px; }
+        .hero-title { font-size: 4.5vw; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; }
+        .hero-title span { color: var(--accent); }
+        .hero-desc { font-size: 1.2vw; color: var(--text-muted); margin-bottom: 40px; line-height: 1.8; }
+
+        /* Mobile Optimizations */
+        @media (max-width: 1023px) {
+            .hero-title { font-size: 10vw; }
+            .hero-desc { font-size: 4.5vw; }
+            .btn { font-size: 4vw; padding: 12px 25px; }
+            .sec-title { font-size: 8vw; }
+            .sec-subtitle { font-size: 4vw; }
+            .glass-panel { padding: 30px; height: 85%; width: 95%; }
+            .cards-3d-wrapper { flex-direction: column; gap: 20px; }
+            .card-3d { padding: 25px; min-height: auto; }
+            .card-3d i { font-size: 8vw; margin-bottom: 15px; }
+            .card-3d h3 { font-size: 6vw; margin-bottom: 12px; }
+            .card-3d p { font-size: 4vw; line-height: 1.8; }
+            .eng-name { font-size: 6vw; }
+            .eng-role { font-size: 4.5vw; }
+            .eng-desc { font-size: 4vw; }
+            .eskill { font-size: 3.5vw; padding: 8px 15px; }
+            .tech-node { width: 70px; height: 70px; }
+            .tech-node i { font-size: 25px; }
+            .tech-node span { font-size: 2.5vw; margin-top: 5px; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .engineer-card { height: 45vh; padding: 20px; }
+            .nav-dots { left: 10px; }
+            .dot { width: 10px; height: 10px; }
+        }
+
+        /* Small Mobile Phones */
+        @media (max-width: 480px) {
+            .hero-title { font-size: 12vw; }
+            .hero-desc { font-size: 5vw; }
+            .btn { font-size: 5vw; padding: 10px 20px; }
+            .sec-title { font-size: 10vw; }
+            .sec-subtitle { font-size: 5vw; }
+            .glass-panel { padding: 20px; height: 90%; width: 98%; }
+            .card-3d { padding: 20px; }
+            .card-3d i { font-size: 10vw; margin-bottom: 12px; }
+            .card-3d h3 { font-size: 7vw; margin-bottom: 10px; }
+            .card-3d p { font-size: 4.5vw; line-height: 1.7; }
+            .eng-name { font-size: 7vw; }
+            .eng-role { font-size: 5vw; }
+            .eng-desc { font-size: 4.5vw; }
+            .eskill { font-size: 4vw; padding: 6px 12px; }
+            .tech-container { flex-direction: column; }
+            .tech-info { flex: 1; padding: 0 20px; text-align: center; margin-bottom: 30px; }
+            .tech-interactive-area { flex: 1; width: 100%; height: 300px; }
+            .tech-node { width: 55px; height: 55px; }
+            .tech-node i { font-size: 20px; }
+            .team-grid { grid-template-columns: 1fr; gap: 20px; }
+            .engineer-card { height: auto; min-height: 35vh; }
+            .nav-dots { left: 8px; }
+            .dot { width: 12px; height: 12px; }
+        }
+        
+        .btn-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+        .btn {
+            padding: 15px 35px; border-radius: 30px; font-size: 1vw; font-weight: 700;
+            text-decoration: none; position: relative; overflow: hidden; transition: 0.3s;
+            border: 1px solid transparent; z-index: 1; display: inline-flex; align-items: center; gap: 10px;
+        }
+        .btn-core { background: var(--primary); color: white; box-shadow: 0 10px 30px rgba(88, 129, 87, 0.3); }
+        .btn-core:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(88, 129, 87, 0.5); }
+        .btn-ghost { background: transparent; border-color: var(--text-muted); color: var(--text-main); }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+        .contact-info { font-family: monospace; font-size: 1.1vw; }
+
+        /* ---------------- Section 2: Architecture & Flow ---------------- */
+        .glass-panel {
+            width: 85%; height: 75%; background: rgba(19, 27, 38, 0.6);
+            backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 30px; padding: 50px; display: flex; flex-direction: column;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+        .sec-title { font-size: 2.5vw; font-weight: 900; margin-bottom: 10px; color: var(--white); }
+        .sec-title span { color: var(--primary); }
+        .sec-subtitle { color: var(--text-muted); font-size: 1.1vw; margin-bottom: 40px; }
+
+        .cards-3d-wrapper { display: flex; gap: 30px; height: 100%; }
+        .card-3d {
+            flex: 1; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px; padding: 30px; transition: transform 0.1s ease-out;
+            display: flex; flex-direction: column; transform-style: preserve-3d;
+        }
+        .card-3d i { font-size: 2.5vw; color: var(--accent); margin-bottom: 20px; transform: translateZ(30px); }
+        .card-3d h3 { font-size: 1.6vw; margin-bottom: 15px; transform: translateZ(20px); }
+        .card-3d p { color: var(--text-muted); line-height: 1.7; font-size: 0.95vw; transform: translateZ(10px); }
+
+        /* ---------------- Section 3: Interactive Tech Grid ---------------- */
+        .tech-container { width: 85%; height: 75%; display: flex; align-items: center; justify-content: space-between; }
+        .tech-info { flex: 0.45; padding-left: 40px; }
+        .tech-interactive-area { flex: 0.55; position: relative; height: 100%; }
+        
+        .tech-node {
+            position: absolute; width: 90px; height: 90px;
+            background: var(--dark-card); border: 2px solid var(--border);
+            border-radius: 20px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: center;
+        }
+        .tech-node i { font-size: 28px; color: var(--text-main); transition: 0.3s; }
+        .tech-node span { font-size: 11px; font-weight: bold; opacity: 0; transition: 0.3s; transform: translateY(10px); }
+        
+        .tech-node:hover { border-color: var(--accent); background: rgba(221, 161, 94, 0.1); transform: scale(1.1) translateZ(0) !important; z-index: 10; }
+        .tech-node:hover i { color: var(--accent); transform: translateY(-5px); }
+        .tech-node:hover span { opacity: 1; transform: translateY(0); color: var(--accent); }
+
+        /* ---------------- Section 4: The Engineers ---------------- */
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; width: 90%; }
+        .engineer-card {
+            height: 55vh; background: var(--dark-card); border-radius: 25px;
+            position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.5s; display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 25px;
+        }
+        .engineer-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(10, 15, 22, 1) 0%, rgba(10, 15, 22, 0) 100%);
+            z-index: 1; transition: 0.5s;
+        }
+        .engineer-card:hover { transform: translateY(-15px); border-color: var(--primary); box-shadow: 0 20px 50px rgba(88, 129, 87, 0.15); }
+        
+        .eng-bg-icon { position: absolute; top: -20px; right: -20px; font-size: 130px; color: rgba(255,255,255,0.02); z-index: 0; transition: 0.5s; }
+        .engineer-card:hover .eng-bg-icon { color: rgba(88, 129, 87, 0.1); transform: scale(1.1) rotate(-10deg); }
+
+        .eng-content { position: relative; z-index: 2; transform: translateY(50px); transition: 0.5s; }
+        .engineer-card:hover .eng-content { transform: translateY(0); }
+        
+        .eng-name { font-size: 1.5vw; font-weight: 900; color: white; margin-bottom: 5px; }
+        .eng-role { color: var(--accent); font-weight: 700; font-size: 0.9vw; margin-bottom: 12px; }
+        .eng-desc { color: var(--text-muted); font-size: 0.85vw; line-height: 1.6; opacity: 0; transition: 0.5s; }
+        .engineer-card:hover .eng-desc { opacity: 1; }
+
+        .eng-skills { display: flex; gap: 6px; margin-top: 15px; opacity: 0; transition: 0.6s; flex-wrap: wrap;}
+        .engineer-card:hover .eng-skills { opacity: 1; }
+        .eskill { background: rgba(255,255,255,0.05); padding: 4px 8px; border-radius: 6px; font-size: 0.75vw; border: 1px solid rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body>
+
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="nav-dots">
+        <div class="dot active" onclick="scrollToSec(0)"></div>
+        <div class="dot" onclick="scrollToSec(1)"></div>
+        <div class="dot" onclick="scrollToSec(2)"></div>
+        <div class="dot" onclick="scrollToSec(3)"></div>
+    </div>
+
+    <div class="main-container" id="mainScroll">
+        
+        <section id="sec0">
+            <div class="cinematic-light light-1"></div>
+            <div class="cinematic-light light-2"></div>
+            
+            <div class="hero-content">
+                <div style="font-size: 1vw; color: var(--primary); font-weight: bold; margin-bottom: 15px; letter-spacing: 2px;">NAFAS SYSTEM 2026</div>
+                <h1 class="hero-title">منظومة <span>نَـفَـس</span> الرقمية</h1>
+                <p class="hero-desc">نظام برمجي متكامل يربط بين مزودي الخدمات والعملاء عبر بنية سحابية تعتمد على قواعد البيانات اللحظية (Real-time DB). صُممت المنصة وفق معايير هندسية متقدمة لضمان استقرار الأداء، الأمان، وقابلية التوسع.</p>
+                <div class="btn-group">
+                    <a href="javascript:void(0)" onclick="scrollToSec(1)" class="btn btn-core">عرض المعمارية <i class="fas fa-arrow-down"></i></a>
+                    <a href="mailto:mariamalnasseri537@gmail.com" class="btn btn-ghost">تواصل معنا <i class="fas fa-envelope"></i></a>
+                    <a href="tel:780147856" class="btn btn-ghost contact-info"><i class="fas fa-phone"></i> 780147856</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec1">
+            <div class="glass-panel">
+                <h2 class="sec-title">هيكلة النظام و<span>تجربة المستخدم</span></h2>
+                <p class="sec-subtitle">تحليل وتصميم التدفقات البرمجية لتلبية متطلبات الأدوار المتعددة بكفاءة.</p>
+                
+                <div class="cards-3d-wrapper">
+                    <div class="card-3d js-tilt">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h3>واجهة العميل (Customer)</h3>
+                        <p>تطبيق يعتمد على إدارة حالة فعالة (State Management) لتوفير تجربة تصفح سلسة، مع معالجة لحظية لحالة الطلبات دون إعادة تحميل الواجهة.</p>
+                    </div>
+                    <div class="card-3d js-tilt">
+                        <i class="fas fa-store"></i>
+                        <h3>إدارة العمليات (Chef)</h3>
+                        <p>وحدة متكاملة لإدارة المخزون والعمليات (CRUD)، مدعومة بنظام معالجة ورفع متوازي للوسائط (Concurrent Processing) لتحسين الأداء.</p>
+                    </div>
+                    <div class="card-3d js-tilt">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>لوحة الإدارة (Admin)</h3>
+                        <p>تطبيق بروتوكولات التحديث الذري (Batch Updates) لضمان اتساق البيانات عند اتخاذ إجراءات إدارية، مع إدارة مركزية لنظام الإشعارات (FCM).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec2">
+            <div class="cinematic-light light-2" style="background: var(--primary); top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px;"></div>
+            
+            <div class="tech-container">
+                <div class="tech-info">
+                    <h2 class="sec-title">البنية التحتية و<span>التقنيات</span></h2>
+                    <p class="sec-subtitle" style="font-size: 1.1vw; margin-top: 20px; line-height: 1.8;">
+                        يعتمد نظام "نَفَس" على معمارية <b>Clean Architecture</b> لضمان استقلالية طبقات الكود وسهولة الصيانة وإضافة الميزات.<br><br>
+                        تم توظيف <b>Streams</b> لإدارة مزامنة البيانات بشكل لحظي، مع تطبيق إجراءات أمان قياسية تشمل (App Signature) لتأمين بيئة الإنتاج (Production).
+                    </p>
+                </div>
+                
+                <div class="tech-interactive-area" id="techNodesArea">
+                    <div class="tech-node" data-angle="0" data-radius="140"><i class="fab fa-flutter"></i><span>Flutter</span></div>
+                    <div class="tech-node" data-angle="72" data-radius="140"><i class="fas fa-fire"></i><span>Firebase</span></div>
+                    <div class="tech-node" data-angle="144" data-radius="140"><i class="fas fa-database"></i><span>NoSQL</span></div>
+                    <div class="tech-node" data-angle="216" data-radius="140"><i class="fab fa-figma"></i><span>UI/UX</span></div>
+                    <div class="tech-node" data-angle="288" data-radius="140"><i class="fas fa-cloud-upload-alt"></i><span>Cloudinary</span></div>
+                    
+                    <div class="tech-node" style="width: 120px; height: 120px; border-color: var(--primary); z-index: 5;" data-angle="0" data-radius="0">
+                        <i class="fas fa-layer-group" style="color: var(--primary); font-size: 35px;"></i>
+                        <span style="color: var(--primary); opacity: 1; transform: translateY(0); font-size: 12px; margin-top: 5px;">Clean Arch</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec3">
+            <div style="position: absolute; top: 8%; text-align: center; width: 100%;">
+                <h2 class="sec-title">فريق التطوير و<span>الهندسة</span></h2>
+            </div>
+            
+            <div class="team-grid">
+                <div class="engineer-card">
+                    <i class="fas fa-server eng-bg-icon"></i>
+                    <div class="eng-content">
+                        <div class="eng-name">معاذ الناصري</div>
+                        <div class="eng-role">Backend & Cloud Architect</div>
+                        <div class="eng-desc">هندس قواعد البيانات اللحظية، وأدار عمليات تأمين البيانات وتجهيز بيئة النشر (Signing/Keystore).</div>
+                        <div class="eng-skills">
+                            <div class="eskill">Firebase DB</div><div class="eskill">Security</div><div class="eskill">DevOps</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="engineer-card">
+                    <i class="fas fa-code eng-bg-icon"></i>
+                    <div class="eng-content">
+                        <div class="eng-name">مريم الناصري</div>
+                        <div class="eng-role">Core Logic & Integrator</div>
+                        <div class="eng-desc">برمجت العمليات المنطقية وواجهات إدارة المطبخ، وطورت نظام معالجة ورفع الوسائط (Cloudinary Integration).</div>
+                        <div class="eng-skills">
+                            <div class="eskill">Dart Logic</div><div class="eskill">API Integration</div><div class="eskill">Media Processing</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="engineer-card">
+                    <i class="fas fa-mobile-alt eng-bg-icon"></i>
+                    <div class="eng-content">
+                        <div class="eng-name">هيلة الناصري</div>
+                        <div class="eng-role">UI/UX & Frontend Eng</div>
+                        <div class="eng-desc">صممت ونفذت واجهات المستخدم، وبرمجت رحلة العميل لضمان تجربة تصفح وطلب سلسة.</div>
+                        <div class="eng-skills">
+                            <div class="eskill">Flutter UI</div><div class="eskill">State Mgmt</div><div class="eskill">Figma</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="engineer-card">
+                    <i class="fas fa-tasks eng-bg-icon"></i>
+                    <div class="eng-content">
+                        <div class="eng-name">آيات الشريفي</div>
+                        <div class="eng-role">System QA & Admin UI</div>
+                        <div class="eng-desc">طورت لوحة الإدارة وهندست العمليات الذرية (Batch Updates)، وأدارت عمليات فحص الجودة (QA) وتدفق الإشعارات.</div>
+                        <div class="eng-skills">
+                            <div class="eskill">QA Testing</div><div class="eskill">Batch Updates</div><div class="eskill">FCM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Check if desktop
+        const isDesktop = window.innerWidth >= 1024;
+
+        // Custom Cursor - Desktop Only
+        if (isDesktop) {
+            const cursor = document.querySelector('.cursor');
+            const follower = document.querySelector('.cursor-follower');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                setTimeout(() => {
+                    follower.style.left = e.clientX + 'px';
+                    follower.style.top = e.clientY + 'px';
+                }, 80);
+            });
+        }
+
+        const mainScroll = document.getElementById('mainScroll');
+        const sections = document.querySelectorAll('section');
+        const dots = document.querySelectorAll('.dot');
+
+        mainScroll.addEventListener('scroll', () => {
+            let index = Math.round(mainScroll.scrollTop / window.innerHeight);
+            dots.forEach(dot => dot.classList.remove('active'));
+            if(dots[index]) dots[index].classList.add('active');
+        });
+
+        function scrollToSec(index) {
+            mainScroll.scrollTo({
+                top: index * window.innerHeight,
+                behavior: 'smooth'
+            });
+        }
+
+        // Tilt Cards - Desktop Only
+        if (isDesktop) {
+            const tiltCards = document.querySelectorAll('.js-tilt');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -10; 
+                    const rotateY = ((x - centerX) / centerX) * 10;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    card.style.background = `rgba(255,255,255,0.04)`;
+                    card.style.borderColor = `var(--primary)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+                    card.style.background = `rgba(255, 255, 255, 0.02)`;
+                    card.style.borderColor = `rgba(255, 255, 255, 0.05)`;
+                });
+            });
+        }
+
+        // Tech Nodes Animation - Desktop Only with visibility check
+        if (isDesktop) {
+            const techNodes = document.querySelectorAll('.tech-node');
+            const techArea = document.getElementById('techNodesArea');
+            let animationId = null;
+            let isSectionVisible = false;
+
+            function positionNodes() {
+                if (!isSectionVisible) return;
+                
+                const centerX = techArea.offsetWidth / 2;
+                const centerY = techArea.offsetHeight / 2;
+
+                techNodes.forEach(node => {
+                    const angle = parseFloat(node.getAttribute('data-angle')) * (Math.PI / 180);
+                    const radius = parseFloat(node.getAttribute('data-radius'));
+                    
+                    const floatOffset = Math.sin(Date.now() / 1000 + angle) * 10; 
+                    
+                    const x = centerX + Math.cos(angle) * (radius + floatOffset) - (node.offsetWidth / 2);
+                    const y = centerY + Math.sin(angle) * (radius + floatOffset) - (node.offsetHeight / 2);
+                    
+                    node.style.left = `${x}px`;
+                    node.style.top = `${y}px`;
+                });
+                animationId = requestAnimationFrame(positionNodes);
+            }
+
+            // Check if tech section is visible
+            function checkVisibility() {
+                const sec2 = document.getElementById('sec2');
+                const rect = sec2.getBoundingClientRect();
+                isSectionVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isSectionVisible && !animationId) {
+                    positionNodes();
+                } else if (!isSectionVisible && animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null;
+                }
+            }
+
+            mainScroll.addEventListener('scroll', checkVisibility);
+            setTimeout(checkVisibility, 500);
+        } else {
+            // Static positioning for mobile
+            const techNodes = document.querySelectorAll('.tech-node');
+            const techArea = document.getElementById('techNodesArea');
+            
+            const centerX = techArea.offsetWidth / 2;
+            const centerY = techArea.offsetHeight / 2;
+
+            techNodes.forEach(node => {
+                const angle = parseFloat(node.getAttribute('data-angle')) * (Math.PI / 180);
+                const radius = parseFloat(node.getAttribute('data-radius'));
+                
+                const x = centerX + Math.cos(angle) * radius - (node.offsetWidth / 2);
+                const y = centerY + Math.sin(angle) * radius - (node.offsetHeight / 2);
+                
+                node.style.left = `${x}px`;
+                node.style.top = `${y}px`;
+            });
+        }
+
+    </script>
+</body>
+</html>
