@@ -5,8 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NAFAS | Engineering Portfolio</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet"></noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
     <style>
         :root {
@@ -18,20 +22,30 @@
             --text-muted: #94a3b8;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; cursor: none; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
 
-        /* ---------------- جافاسكربت Custom Cursor ---------------- */
-        .cursor {
-            width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 9999;
-            transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+        /* Custom Cursor - Desktop Only */
+        @media (min-width: 1024px) {
+            * { cursor: none; }
         }
-        .cursor-follower {
-            width: 40px; height: 40px; border: 1px solid var(--primary); border-radius: 50%;
-            position: fixed; pointer-events: none; z-index: 9998;
-            transform: translate(-50%, -50%); transition: 0.1s ease-out;
+
+        /* ---------------- Custom Cursor - Desktop Only ---------------- */
+        @media (min-width: 1024px) {
+            .cursor {
+                width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
+                position: fixed; pointer-events: none; z-index: 9999;
+                transform: translate(-50%, -50%); transition: width 0.2s, height 0.2s;
+            }
+            .cursor-follower {
+                width: 40px; height: 40px; border: 1px solid var(--primary); border-radius: 50%;
+                position: fixed; pointer-events: none; z-index: 9998;
+                transform: translate(-50%, -50%); transition: 0.1s ease-out;
+            }
+            a:hover ~ .cursor, button:hover ~ .cursor { transform: translate(-50%, -50%) scale(2); background: var(--primary); }
         }
-        a:hover ~ .cursor, button:hover ~ .cursor { transform: translate(-50%, -50%) scale(2); background: var(--primary); }
+        @media (max-width: 1023px) {
+            .cursor, .cursor-follower { display: none; }
+        }
 
         /* ---------------- إعدادات الـ Snap Scrolling ---------------- */
         html, body { height: 100%; width: 100%; overflow: hidden; background: var(--dark-bg); color: var(--text-main); }
@@ -77,11 +91,67 @@
 
         @keyframes moveLight { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(100px, 100px) scale(1.2); } }
 
+        /* Disable heavy animations on mobile */
+        @media (max-width: 1023px) {
+            .cinematic-light { display: none; }
+        }
+
         /* ---------------- Section 1: Hero ---------------- */
         .hero-content { text-align: center; z-index: 1; max-width: 850px; padding: 0 20px; }
         .hero-title { font-size: 4.5vw; font-weight: 900; margin-bottom: 20px; letter-spacing: -1px; }
         .hero-title span { color: var(--accent); }
         .hero-desc { font-size: 1.2vw; color: var(--text-muted); margin-bottom: 40px; line-height: 1.8; }
+
+        /* Mobile Optimizations */
+        @media (max-width: 1023px) {
+            .hero-title { font-size: 10vw; }
+            .hero-desc { font-size: 4.5vw; }
+            .btn { font-size: 4vw; padding: 12px 25px; }
+            .sec-title { font-size: 8vw; }
+            .sec-subtitle { font-size: 4vw; }
+            .glass-panel { padding: 30px; height: 85%; width: 95%; }
+            .cards-3d-wrapper { flex-direction: column; gap: 20px; }
+            .card-3d { padding: 25px; min-height: auto; }
+            .card-3d i { font-size: 8vw; margin-bottom: 15px; }
+            .card-3d h3 { font-size: 6vw; margin-bottom: 12px; }
+            .card-3d p { font-size: 4vw; line-height: 1.8; }
+            .eng-name { font-size: 6vw; }
+            .eng-role { font-size: 4.5vw; }
+            .eng-desc { font-size: 4vw; }
+            .eskill { font-size: 3.5vw; padding: 8px 15px; }
+            .tech-node { width: 70px; height: 70px; }
+            .tech-node i { font-size: 25px; }
+            .tech-node span { font-size: 2.5vw; margin-top: 5px; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+            .engineer-card { height: 45vh; padding: 20px; }
+            .nav-dots { left: 10px; }
+            .dot { width: 10px; height: 10px; }
+        }
+
+        /* Small Mobile Phones */
+        @media (max-width: 480px) {
+            .hero-title { font-size: 12vw; }
+            .hero-desc { font-size: 5vw; }
+            .btn { font-size: 5vw; padding: 10px 20px; }
+            .sec-title { font-size: 10vw; }
+            .sec-subtitle { font-size: 5vw; }
+            .glass-panel { padding: 20px; height: 90%; width: 98%; }
+            .card-3d { padding: 20px; }
+            .card-3d i { font-size: 10vw; margin-bottom: 12px; }
+            .card-3d h3 { font-size: 7vw; margin-bottom: 10px; }
+            .card-3d p { font-size: 4.5vw; line-height: 1.7; }
+            .eng-name { font-size: 6vw; }
+            .eng-role { font-size: 4vw; }
+            .eng-desc { font-size: 4vw; }
+            .eskill { font-size: 3.5vw; padding: 5px 10px; }
+            .tech-container { flex-direction: column; }
+            .tech-info { flex: 1; padding: 0 20px; text-align: center; margin-bottom: 30px; }
+            .tech-interactive-area { flex: 1; width: 100%; height: 300px; }
+            .tech-node { width: 55px; height: 55px; }
+            .tech-node i { font-size: 20px; }
+            .team-grid { grid-template-columns: 1fr; gap: 20px; }
+            .engineer-card { height: auto; min-height: 35vh; }
+        }
         
         .btn-group { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
         .btn {
@@ -308,17 +378,23 @@
     </div>
 
     <script>
-        const cursor = document.querySelector('.cursor');
-        const follower = document.querySelector('.cursor-follower');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            setTimeout(() => {
-                follower.style.left = e.clientX + 'px';
-                follower.style.top = e.clientY + 'px';
-            }, 80);
-        });
+        // Check if desktop
+        const isDesktop = window.innerWidth >= 1024;
+
+        // Custom Cursor - Desktop Only
+        if (isDesktop) {
+            const cursor = document.querySelector('.cursor');
+            const follower = document.querySelector('.cursor-follower');
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                setTimeout(() => {
+                    follower.style.left = e.clientX + 'px';
+                    follower.style.top = e.clientY + 'px';
+                }, 80);
+            });
+        }
 
         const mainScroll = document.getElementById('mainScroll');
         const sections = document.querySelectorAll('section');
@@ -337,34 +413,82 @@
             });
         }
 
-        const tiltCards = document.querySelectorAll('.js-tilt');
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+        // Tilt Cards - Desktop Only
+        if (isDesktop) {
+            const tiltCards = document.querySelectorAll('.js-tilt');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', e => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -10; 
+                    const rotateY = ((x - centerX) / centerX) * 10;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    card.style.background = `rgba(255,255,255,0.04)`;
+                    card.style.borderColor = `var(--primary)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
+                    card.style.background = `rgba(255, 255, 255, 0.02)`;
+                    card.style.borderColor = `rgba(255, 255, 255, 0.05)`;
+                });
+            });
+        }
+
+        // Tech Nodes Animation - Desktop Only with visibility check
+        if (isDesktop) {
+            const techNodes = document.querySelectorAll('.tech-node');
+            const techArea = document.getElementById('techNodesArea');
+            let animationId = null;
+            let isSectionVisible = false;
+
+            function positionNodes() {
+                if (!isSectionVisible) return;
                 
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -10; 
-                const rotateY = ((x - centerX) / centerX) * 10;
+                const centerX = techArea.offsetWidth / 2;
+                const centerY = techArea.offsetHeight / 2;
 
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-                card.style.background = `rgba(255,255,255,0.04)`;
-                card.style.borderColor = `var(--primary)`;
-            });
+                techNodes.forEach(node => {
+                    const angle = parseFloat(node.getAttribute('data-angle')) * (Math.PI / 180);
+                    const radius = parseFloat(node.getAttribute('data-radius'));
+                    
+                    const floatOffset = Math.sin(Date.now() / 1000 + angle) * 10; 
+                    
+                    const x = centerX + Math.cos(angle) * (radius + floatOffset) - (node.offsetWidth / 2);
+                    const y = centerY + Math.sin(angle) * (radius + floatOffset) - (node.offsetHeight / 2);
+                    
+                    node.style.left = `${x}px`;
+                    node.style.top = `${y}px`;
+                });
+                animationId = requestAnimationFrame(positionNodes);
+            }
 
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)`;
-                card.style.background = `rgba(255, 255, 255, 0.02)`;
-                card.style.borderColor = `rgba(255, 255, 255, 0.05)`;
-            });
-        });
+            // Check if tech section is visible
+            function checkVisibility() {
+                const sec2 = document.getElementById('sec2');
+                const rect = sec2.getBoundingClientRect();
+                isSectionVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isSectionVisible && !animationId) {
+                    positionNodes();
+                } else if (!isSectionVisible && animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null;
+                }
+            }
 
-        const techNodes = document.querySelectorAll('.tech-node');
-        const techArea = document.getElementById('techNodesArea');
-        
-        function positionNodes() {
+            mainScroll.addEventListener('scroll', checkVisibility);
+            setTimeout(checkVisibility, 500);
+        } else {
+            // Static positioning for mobile
+            const techNodes = document.querySelectorAll('.tech-node');
+            const techArea = document.getElementById('techNodesArea');
+            
             const centerX = techArea.offsetWidth / 2;
             const centerY = techArea.offsetHeight / 2;
 
@@ -372,18 +496,13 @@
                 const angle = parseFloat(node.getAttribute('data-angle')) * (Math.PI / 180);
                 const radius = parseFloat(node.getAttribute('data-radius'));
                 
-                const floatOffset = Math.sin(Date.now() / 1000 + angle) * 10; 
-                
-                const x = centerX + Math.cos(angle) * (radius + floatOffset) - (node.offsetWidth / 2);
-                const y = centerY + Math.sin(angle) * (radius + floatOffset) - (node.offsetHeight / 2);
+                const x = centerX + Math.cos(angle) * radius - (node.offsetWidth / 2);
+                const y = centerY + Math.sin(angle) * radius - (node.offsetHeight / 2);
                 
                 node.style.left = `${x}px`;
                 node.style.top = `${y}px`;
             });
-            requestAnimationFrame(positionNodes);
         }
-        
-        setTimeout(() => positionNodes(), 500);
 
     </script>
 </body>
